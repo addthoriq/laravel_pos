@@ -39,19 +39,19 @@
         </ul>
       </li>
       {{-- Order --}}
-      <li class="treeview">
+      <li>
         <a href="#">
           <i class="fa fa-shopping-cart"></i> <span>Order</span>
         </a>
       </li>
       {{-- Payment --}}
-      <li class="treeview">
+      <li>
         <a href="#">
           <i class="fa fa-dollar"></i> <span>Payment</span>
         </a>
       </li>
       {{-- User --}}
-      <li class="treeview">
+      <li>
         <a href="#">
           <i class="fa fa-user"></i> <span>User</span>
         </a>
