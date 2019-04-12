@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Category;
 
 class CategoryController extends Controller
 {
+    protected $folder = 'admin.product.category';
+    protected $rdr = 'admin/category';
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $data     = Category::orderBy('id')->paginate(5);
+        return view($this->folder.'.index', compact('data'));
     }
 
     /**
@@ -24,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view($this->folder.'.create');
     }
 
     /**
@@ -35,7 +39,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'  => 'required'
+        ]);
+        $data   = new Category;
+        $data->name   = $request->name;
+        $data->save();
+        return redirect($this->rdr)->with('success', 'Data Berhasil di tambahkan');
     }
 
     /**
@@ -44,20 +54,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $data = Category::find($id);
+        return view($this->folder.'.edit', compact('data'));
     }
 
     /**
@@ -69,7 +69,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name'  => 'required'
+        ]);
+        Category::find($id)->update([
+            'name'  => $request->name
+        ]);
+        return redirect($this->rdr)->with('success', 'Data Berhasil di ubah');
     }
 
     /**
@@ -80,6 +86,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Category::find($id);
+        $data->delete();
+        return redirect($this->rdr)->with('success', 'Data Berhasil di Hapus');
     }
 }
