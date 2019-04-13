@@ -114,6 +114,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data   = Product::find($id);
+        $data->delete();
+        return redirect($this->rdr)->with('success', 'Data berhasil di Hapus');
     }
 }

@@ -40,19 +40,19 @@
       </li>
       {{-- Order --}}
       <li class="{{Request::is('admin/order','admin/order/create')?'active':''}}">
-        <a href="#">
+        <a href="{{route('order.index')}}">
           <i class="fa fa-shopping-cart"></i> <span>Order</span>
         </a>
       </li>
       {{-- Payment --}}
       <li class="{{Request::is('admin/payment','admin/payment/create')?'active':''}}">
-        <a href="#">
+        <a href="{{route('payment.index')}}">
           <i class="fa fa-dollar"></i> <span>Payment</span>
         </a>
       </li>
       {{-- User --}}
       <li class="{{Request::is('admin/user','admin/user/create')?'active':''}}">
-        <a href="#">
+        <a href="{{route('user.index')}}">
           <i class="fa fa-user"></i> <span>User</span>
         </a>
       </li>
