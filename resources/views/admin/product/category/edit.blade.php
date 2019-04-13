@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Tambah baru')
+@section('title', 'Ubah Kategori')
 @section('content')
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->

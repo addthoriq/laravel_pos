@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Product;
+use App\Model\Category;
 
 class ProductController extends Controller
 {
@@ -12,9 +14,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $folder   = 'admin.product.item';
+    protected $rdr   = 'admin/item';
     public function index()
     {
-        //
+        $data   = Product::orderBy('id')->paginate(5);
+        return view($this->folder.'.index',compact('data'));
     }
 
     /**
@@ -24,7 +29,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $data   = Category::all();
+        return view($this->folder.'.create', compact('data'));
     }
 
     /**
@@ -35,7 +41,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'category'  => 'required',
+            'name'  => 'required',
+            'price'  => 'required',
+            'status'  => 'required',
+        ]);
+        $data   = new Product;
+        $data->category_id  = $request->category;
+        $data->name  = $request->name;
+        $data->price  = $request->price;
+        $data->status  = $request->status;
+        $data->save();
+        return redirect($this->rdr);
     }
 
     /**
@@ -46,7 +64,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -57,7 +75,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cat  = Category::all();
+        $data = Product::find($id);
+        return view($this->folder.'.edit',compact('data','cat'));
     }
 
     /**
@@ -69,7 +89,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'category'  => 'required',
+            'name'  => 'required',
+            'price'  => 'required',
+            'status'  => 'required',
+        ]);
+        Product::find($id)->update(
+            [
+                'category_id'   => $request->category,
+                'name'   => $request->name,
+                'price'   => $request->price,
+                'status'   => $request->status,
+            ]
+        );
+        return redirect($this->rdr);
     }
 
     /**

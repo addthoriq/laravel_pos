@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Tambah baru')
+@section('title', 'Tambah baru Kategori')
 @section('content')
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -38,7 +38,7 @@
                   <div class="form-group">
                     <label for="inputNama" class="col-sm-2 control-label">Nama</label>
                     <div class="col-sm-10">
-                      <input type="text" name="name" class="form-control" value="{{olde('name')}}" id="inputNama" placeholder="Nama">
+                      <input type="text" name="name" class="form-control" value="{{old('name')}}" id="inputNama" placeholder="Nama">
                       @if ($errors->has('name'))
                           <span class="text-danger">
                               {{$errors->first('name')}}

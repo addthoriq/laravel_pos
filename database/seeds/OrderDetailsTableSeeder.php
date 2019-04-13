@@ -15,8 +15,7 @@ class OrderDetailsTableSeeder extends Seeder
         $data   = [
             [
                 'order_id'      => 1,
-                'product_name'  => 'Mie Ayam',
-                'product_price' => 4000,
+                'product_id'  => 2,
                 'quantity'      => 2,
                 'note'          => 'Lunas',
                 'created_at'    => now(),
@@ -24,8 +23,7 @@ class OrderDetailsTableSeeder extends Seeder
             ],
             [
                 'order_id'      => 2,
-                'product_name'  => 'Es teh',
-                'product_price' => 2000,
+                'product_id'  => 1,
                 'quantity'      => 5,
                 'note'          => 'Utang',
                 'created_at'    => now(),

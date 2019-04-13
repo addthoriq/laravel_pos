@@ -26,7 +26,7 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MAIN NAVIGATION</li>
       {{-- Product --}}
-      <li class="treeview">
+      <li class="treeview {{Request::is('admin/category','admin/category/create','admin/item','admin/item/create')?'active':''}}">
         <a href="#">
           <i class="fa fa-industry"></i> <span>Product</span>
           <span class="pull-right-container">
@@ -34,24 +34,24 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/adminlte/index.html"><i class="fa fa-tags"></i> Category</a></li>
-          <li><a href="/adminlte/index2.html"><i class="fa fa-sticky-note"></i> Item</a></li>
+          <li class="{{Request::is('admin/category','admin/category/create')?'active':''}}"><a href="{{route('category.index')}}"><i class="fa fa-tags"></i> Category</a></li>
+          <li class="{{Request::is('admin/item','admin/item/create')?'active':''}}"><a href="{{route('item.index')}}"><i class="fa fa-sticky-note"></i> Item</a></li>
         </ul>
       </li>
       {{-- Order --}}
-      <li>
+      <li class="{{Request::is('admin/order','admin/order/create')?'active':''}}">
         <a href="#">
           <i class="fa fa-shopping-cart"></i> <span>Order</span>
         </a>
       </li>
       {{-- Payment --}}
-      <li>
+      <li class="{{Request::is('admin/payment','admin/payment/create')?'active':''}}">
         <a href="#">
           <i class="fa fa-dollar"></i> <span>Payment</span>
         </a>
       </li>
       {{-- User --}}
-      <li>
+      <li class="{{Request::is('admin/user','admin/user/create')?'active':''}}">
         <a href="#">
           <i class="fa fa-user"></i> <span>User</span>
         </a>
