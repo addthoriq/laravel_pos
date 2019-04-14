@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\User;
 
 class UserController extends Controller
 {
@@ -12,9 +13,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $folder   = 'admin.user';
+    protected $rdr   = 'admin/user';
     public function index()
     {
-        //
+        $data = User::orderBy('id')->paginate(5);
+        return view($this->folder.'.index',compact('data'));
     }
 
     /**
@@ -24,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view($this->folder.'.create');
     }
 
     /**
@@ -35,7 +39,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'  => 'required',
+            'email'  => 'required|email|unique:users,email',
+            'password'  => 'required',
+        ]);
+        $data = new User;
+        $data->name     = $request->name;
+        $data->email     = $request->email;
+        $data->password     = bcrypt($request->password);
+        $data->save();
+        return redirect($this->rdr)->with('success', 'Data berhasil di tambah');
     }
 
     /**
@@ -46,7 +60,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -57,7 +71,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data   = User::find($id);
+        return view($this->folder.'.edit',compact('data'));
     }
 
     /**
@@ -69,7 +84,31 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name'  => 'required',
+            'email'  => 'required|email|unique:users,email',
+            'password'  => 'required',
+        ]);
+        $datas = $request->all();
+        if (empty($datas['password'])) {
+            unset($datas['password']);
+            $this->validate($request,[
+                'name'  => 'required',
+                'email'  => 'required|email|unique:users,email',
+            ]);
+        }else{
+            $this->validate($request,[
+                'name'  => 'required',
+                'email'  => 'required|email|unique:users,email',
+                'password'  => 'required',
+            ]);
+        }
+            User::find($id)->update([
+                'name'  => $request->name,
+                'email'  => $request->email,
+                'password'  => bcrypt($request->password),
+            ]);
+        return redirect($this->rdr)->with('success', 'Data berhasil di rubah');
     }
 
     /**
@@ -80,6 +119,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = User::find($id);
+        $data->delete();
+        return redirect($this->rdr);
     }
 }

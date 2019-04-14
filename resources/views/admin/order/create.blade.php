@@ -47,12 +47,28 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputHarga" class="col-sm-2 control-label">Total</label>
+                    <label for="inputNama" class="col-sm-2 control-label">Pesanan</label>
                     <div class="col-sm-10">
-                      <input type="text" name="total" class="form-control" value="{{old('total')}}" id="inputHarga" placeholder="ex: 12000">
-                      @if ($errors->has('total'))
+                      <select class="form-control" name="pesanan">
+                          <option value="">-- Pilih Pesanan --</option>
+                          @foreach ($pro as $mow)
+                              <option value="{{$mow->id}}">{{$mow->name}}</option>
+                          @endforeach
+                      </select>
+                      @if ($errors->has('pesanan'))
                           <span class="text-danger">
-                              {{$errors->first('total')}}
+                              {{$errors->first('pesanan')}}
+                          </span>
+                      @endif
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputHarga" class="col-sm-2 control-label">Jumlah</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="jumlah" class="form-control" value="{{old('jumlah')}}" id="inputHarga" placeholder="ex: 2">
+                      @if ($errors->has('jumlah'))
+                          <span class="text-danger">
+                              {{$errors->first('jumlah')}}
                           </span>
                       @endif
                     </div>
@@ -69,6 +85,17 @@
                       @if ($errors->has('payment'))
                           <span class="text-danger">
                               {{$errors->first('payment')}}
+                          </span>
+                      @endif
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputNama" class="col-sm-2 control-label">Catatan</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="note" class="form-control" value="{{old('note')}}" id="inputNama" placeholder="ex: 12">
+                      @if ($errors->has('note'))
+                          <span class="text-danger">
+                              {{$errors->first('note')}}
                           </span>
                       @endif
                     </div>

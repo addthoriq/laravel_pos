@@ -8,74 +8,44 @@
         <h5 class="modal-title" id="exampleModalLabel">Rincian</h5>
       </div>
       <div class="modal-body">
-          <div class="container-fluid">
-              <div class="row">
-                  <div class="col-sm-4">
-                      <label for="">Nomor Meja </label>
-                  </div>
-                  <div class="col-sm-2">
-                      <label for="">= </label>
-                  </div>
-                  <div class="col-sm-6">
-                      <p>{{$row->table_number}}</p>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-sm-4">
-                      <label for="">Total </label>
-                  </div>
-                  <div class="col-sm-2">
-                      <label for="">= </label>
-                  </div>
-                  <div class="col-sm-6">
-                      <p>{{rupiah($row->total)}}</p>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-sm-4">
-                      <label for="">Jenis Pembayaran </label>
-                  </div>
-                  <div class="col-sm-2">
-                      <label for="">= </label>
-                  </div>
-                  <div class="col-sm-6">
-                      <p>{{$row->payment->name}}</p>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-sm-4">
-                      <label for="">Petugas Kasir </label>
-                  </div>
-                  <div class="col-sm-2">
-                      <label for="">= </label>
-                  </div>
-                  <div class="col-sm-6">
-                      <p>{{$row->user->name}}</p>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-sm-4">
-                      <label for="">Dibuat pada </label>
-                  </div>
-                  <div class="col-sm-2">
-                      <label for="">= </label>
-                  </div>
-                  <div class="col-sm-6">
-                      <p>{{date('d F Y H:i', strtotime($row->created_at))}}</p>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-sm-4">
-                      <label for="">Dirubah pada </label>
-                  </div>
-                  <div class="col-sm-2">
-                      <label for="">= </label>
-                  </div>
-                  <div class="col-sm-6">
-                      <p>{{date('d F Y H:i', strtotime($row->updated_at))}}</p>
-                  </div>
-              </div>
+          <div class="row">
+              <b class="col-sm-4">Nomor Meja</b>
+              <div class="col-sm-8">: {{ $row->table_number }}</div>
           </div>
+          @foreach($row->orderDetail as $detail)
+              <div class="row">
+                  <b class="col-sm-4">Pesanan</b>
+                  <div class="col-sm-8">: {{ $detail->product->name }}</div>
+              </div>
+              <div class="row">
+                  <b class="col-sm-4">Harga</b>
+                  <div class="col-sm-8">: {{ rupiah($detail->product->price) }}</div>
+              </div>
+              <div class="row">
+                  <b class="col-sm-4">Jumlah</b>
+                  <div class="col-sm-8">: {{ $detail->quantity }}</div>
+              </div>
+              <div class="row">
+                  <b class="col-sm-4">Catatan</b>
+                  <div class="col-sm-8">: {{ $detail->note }}</div>
+              </div>
+        @endforeach
+        <div class="row">
+            <b class="col-sm-4">Total Pembayaran</b>
+            <div class="col-sm-8">: {{ rupiah($row->total) }}</div>
+        </div>
+        <div class="row">
+            <b class="col-sm-4">Jenis Pembayaran</b>
+            <div class="col-sm-8">: {{ $row->payment->name }}</div>
+        </div>
+        <div class="row">
+            <b class="col-sm-4">Petugas Kasir</b>
+            <div class="col-sm-8">: {{ $row->user->name }}</div>
+        </div>
+        <div class="row">
+            <b class="col-sm-4">Waktu</b>
+            <div class="col-sm-8">: {{ date('d F Y H:i', strtotime($row->created_at)) }}</div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

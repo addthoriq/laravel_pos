@@ -53,7 +53,7 @@ class ProductController extends Controller
         $data->price  = $request->price;
         $data->status  = $request->status;
         $data->save();
-        return redirect($this->rdr);
+        return redirect($this->rdr)->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -103,7 +103,7 @@ class ProductController extends Controller
                 'status'   => $request->status,
             ]
         );
-        return redirect($this->rdr);
+        return redirect($this->rdr)->with('success', 'Data berhasil di ubah');
     }
 
     /**

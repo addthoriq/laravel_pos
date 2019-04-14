@@ -8,6 +8,7 @@ use App\Model\Order;
 use App\Model\Payment;
 use App\Model\User;
 use App\Model\OrderDetail;
+use App\Model\Product;
 
 class OrderController extends Controller
 {
@@ -32,8 +33,10 @@ class OrderController extends Controller
     public function create()
     {
         $data  = Payment::all();
+        $ord   = OrderDetail::all();
         $usr   = User::all();
-        return view($this->folder.'.create', compact('data','usr'));
+        $pro   = Product::all();
+        return view($this->folder.'.create', compact('data','usr','ord','pro'));
     }
 
     /**
@@ -46,17 +49,29 @@ class OrderController extends Controller
     {
         $this->validate($request, [
             'table_number'  => 'required',
-            'total'  => 'required',
+            'pesanan'  => 'required',
+            'jumlah'  => 'required',
             'payment'  => 'required',
+            'note'  => 'required',
             'user'  => 'required',
         ]);
-        $data   = new Order;
-        $data->table_number = $request->table_number;
-        $data->total = $request->total;
-        $data->payment_id = $request->payment;
-        $data->created_by = $request->user;
-        $data->save();
-        return redirect($this->rdr);
+        $data1   = new Order;
+        $data1->table_number = $request->table_number;
+        $data1->payment_id = $request->payment;
+        $data1->created_by = $request->user;
+        $data1->save();
+
+        $data2  = new OrderDetail;
+        $data2->order_id = $data1->id;
+        $data2->product_id = $request->pesanan;
+        $data2->quantity = $request->jumlah;
+        $data2->note = $request->note;
+        $data2->save();
+
+        $dat = Order::find($data1->id);
+        $dat->total = $data2->product->price*$request->jumlah;
+        $dat->save();
+        return redirect($this->rdr)->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -81,7 +96,10 @@ class OrderController extends Controller
         $pay  = Payment::all();
         $usr   = User::all();
         $data   = Order::find($id);
-        return view($this->folder.'.edit', compact('data','usr','pay'));    }
+        $pro    = Product::all();
+        $ord   = OrderDetail::find($id);
+        return view($this->folder.'.edit', compact('data','usr','pay','pro','ord'));    
+    }
 
     /**
      * Update the specified resource in storage.
@@ -94,17 +112,29 @@ class OrderController extends Controller
     {
         $this->validate($request, [
             'table_number'  => 'required',
-            'total'  => 'required',
+            'pesanan'  => 'required',
+            'jumlah'  => 'required',
             'payment'  => 'required',
+            'note'  => 'required',
             'user'  => 'required',
         ]);
-        Order::find($id)->update([
-            'table_number'  => $request->table_number,
-            'total'  => $request->total,
-            'payment_id'  => $request->payment,
-            'created_by'  => $request->user,
-        ]);
-        return redirect($this->rdr);
+        $data1   = Order::where('id', $id)->first();
+        $data1->table_number = $request->table_number;
+        $data1->payment_id = $request->payment;
+        $data1->created_by = $request->user;
+        $data1->save();
+
+        $data2  = OrderDetail::where('id',$id)->first();
+        $data2->order_id = $data1->id;
+        $data2->product_id = $request->pesanan;
+        $data2->quantity = $request->jumlah;
+        $data2->note = $request->note;
+        $data2->save();
+
+        $dat = Order::find($data1->id);
+        $dat->total = $data2->product->price*$request->jumlah;
+        $dat->save();
+        return redirect($this->rdr)->with('success', 'Data berhasil di ubah');
     }
 
     /**

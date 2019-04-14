@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Payment;
 
 class PaymentController extends Controller
 {
@@ -12,9 +13,12 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $folder   = 'admin.payment';
+    protected $rdr      = 'admin/payment';
     public function index()
     {
-        //
+        $data   = Payment::orderBy('id')->paginate(5);
+        return view($this->folder.'.index', compact('data'));
     }
 
     /**
@@ -24,7 +28,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        //
+        return view($this->folder.'.create');
     }
 
     /**
@@ -35,7 +39,15 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'  => 'required',
+            'status'  => 'required',
+        ]);
+        $data = new Payment;
+        $data->name = $request->name;
+        $data->status = $request->status;
+        $data->save();
+        return redirect($this->rdr)->with('success', 'Data Berhasil di Tambah');
     }
 
     /**
@@ -57,7 +69,8 @@ class PaymentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data   = Payment::find($id);
+        return view($this->folder.'.edit', compact('data'));
     }
 
     /**
@@ -69,7 +82,15 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name'  => 'required',
+            'status'  => 'required',
+        ]);
+        Payment::find($id)->update([
+            'name'  => $request->name,
+            'status'  => $request->status,
+        ]);
+        return redirect($this->rdr)->with('success', 'Data Berhasil di Ubah');
     }
 
     /**
@@ -80,6 +101,8 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Payment::find($id);
+        $data->delete();
+        return redirect($this->rdr)->with('success', 'Data berhasil di hapus');
     }
 }
