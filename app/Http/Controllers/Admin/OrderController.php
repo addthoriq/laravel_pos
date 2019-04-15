@@ -21,8 +21,9 @@ class OrderController extends Controller
     protected $rdr      = 'admin/order';
     public function index()
     {
+        $pro    = Product::where('deleted_at', 'IS NULL')->restore();
         $data   = Order::orderBy('id')->paginate(5);
-        return view($this->folder.'.index', compact('data'));
+        return view($this->folder.'.index', compact('data', 'pro'));
     }
 
     /**
@@ -145,6 +146,8 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // $data = Order::find($id);
+        // $data->delete();
+        // return redirect($this->rdr)->with('success', 'Data berhasil dihapus');
     }
 }
