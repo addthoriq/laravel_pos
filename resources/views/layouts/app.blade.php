@@ -28,7 +28,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-purple-light sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
@@ -49,22 +49,6 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="/adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="/adminlte/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="/adminlte/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/adminlte/dist/js/demo.js"></script>
-<script>
-  $(document).ready(function () {
-    $('.sidebar-menu').tree()
-  })
-</script>
+@include('layouts.part.script')
 </body>
 </html>

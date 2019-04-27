@@ -7,7 +7,7 @@
         <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
-        <p>Alexander Pierce</p>
+        <p>{{auth()->user()->name}}</p>
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
@@ -25,6 +25,12 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MAIN NAVIGATION</li>
+      {{-- Home --}}
+      <li class="{{Request::is('admin')?'active':''}}">
+        <a href="{{ url('admin/')}}">
+          <i class="fa fa-home"></i> <span>Home</span>
+        </a>
+      </li>
       {{-- Product --}}
       <li class="treeview {{Request::is('admin/category','admin/category/create','admin/item','admin/item/create')?'active':''}}">
         <a href="#">
@@ -35,7 +41,7 @@
         </a>
         <ul class="treeview-menu">
           <li class="{{Request::is('admin/category','admin/category/create')?'active':''}}"><a href="{{route('category.index')}}"><i class="fa fa-tags"></i> Category</a></li>
-          <li class="{{Request::is('admin/item','admin/item/create')?'active':''}}"><a href="{{route('item.index')}}"><i class="fa fa-sticky-note"></i> Item</a></li>
+          <li class="{{Request::is('admin/item','admin/item/create')?'active':''}}"><a href="{{route('item.index')}}"><i class="fa fa-coffee"></i> Item</a></li>
         </ul>
       </li>
       {{-- Order --}}

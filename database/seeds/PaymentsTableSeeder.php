@@ -12,21 +12,21 @@ class PaymentsTableSeeder extends Seeder
      */
     public function run()
     {
-        $data   = [
-            [
-                'name'  => 'Cash',
-                'status'    => 1,
-                'created_at'    => now(),
-                'updated_at'    => now(),
-            ],
-            [
-                'name'  => 'Transfer',
-                'status'    => 0,
-                'created_at'    => now(),
-                'updated_at'    => now(),
-            ],
-        ];
-        DB::table('payments')->truncate();
-        DB::table('payments')->insert($data);
+        // $data   = [
+        //     [
+        //         'name'  => 'Cash',
+        //         'status'    => 1,
+        //         'created_at'    => now(),
+        //         'updated_at'    => now(),
+        //     ],
+        //     [
+        //         'name'  => 'Transfer',
+        //         'status'    => 0,
+        //         'created_at'    => now(),
+        //         'updated_at'    => now(),
+        //     ],
+        // ];
+        // DB::table('payments')->truncate();
+        // DB::table('payments')->insert($data);
     }
 }

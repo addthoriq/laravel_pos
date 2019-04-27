@@ -11,13 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Admin\AuthController@index')->name('auth.index');
+Route::post('/login', 'Admin\AuthController@login')->name('auth.login');
+Route::post('/logout', 'Admin\AuthController@logout')->name('auth.logout');
+
 Route::prefix('admin')->group(function(){
+    //Didalam
+    Route::get('/', function(){
+        return view('admin.index');
+    });
     Route::resource('/category', 'Admin\CategoryController');
     Route::resource('/item', 'Admin\ProductController');
     Route::resource('/order', 'Admin\OrderController');
     Route::resource('/payment', 'Admin\PaymentController');
-    Route::resource('/user', 'Admin\UserController');
+	Route::resource('/user', 'Admin\UserController');
 });
