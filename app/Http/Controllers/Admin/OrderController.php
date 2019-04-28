@@ -21,7 +21,7 @@ class OrderController extends Controller
     public function index()
     {
         $pro    = Product::where('deleted_at', null)->restore();
-        $data   = Order::paginate(5);
+        $data   = Order::paginate(10);
         return view($this->folder.'.index', compact('data', 'pro'));
     }
 

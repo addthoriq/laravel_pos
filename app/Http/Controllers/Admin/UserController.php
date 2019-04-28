@@ -17,7 +17,7 @@ class UserController extends Controller
     protected $rdr   = 'admin/user';
     public function index()
     {
-        $data = User::orderBy('id')->paginate(5);
+        $data = User::orderBy('id')->paginate(10);
         return view($this->folder.'.index',compact('data'));
     }
 

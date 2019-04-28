@@ -17,7 +17,7 @@ class PaymentController extends Controller
     protected $rdr      = 'admin/payment';
     public function index()
     {
-        $data   = Payment::orderBy('id')->paginate(5);
+        $data   = Payment::orderBy('id')->paginate(10);
         return view($this->folder.'.index', compact('data'));
     }
 

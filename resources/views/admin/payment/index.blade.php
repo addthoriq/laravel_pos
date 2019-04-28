@@ -74,8 +74,8 @@
           <div class="row">
               <div class="col-sm-5">
                   <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                      @if ($data->total()>5)
-                          Menampilkan 1 sampai 5 dari {{$data->total()}} data
+                      @if ($data->total()>10)
+                          Menampilkan 1 sampai 10 dari {{$data->total()}} data
                           @else
                               Menampilkan {{$data->total()}} data
                       @endif

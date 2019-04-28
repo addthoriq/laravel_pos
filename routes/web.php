@@ -25,4 +25,9 @@ Route::prefix('admin')->group(function(){
     Route::resource('/order', 'Admin\OrderController');
     Route::resource('/payment', 'Admin\PaymentController');
 	Route::resource('/user', 'Admin\UserController');
+
+	//Report
+	Route::get('/report', 'Admin\ReportController@index')->name('report.index');
+	Route::get('/report/pdf', 'Admin\ReportController@pdf')->name('report.pdf');
+	Route::get('/report/excel', 'Admin\ReportController@excel')->name('report.excel');
 });

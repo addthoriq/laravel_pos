@@ -18,7 +18,7 @@ class ProductController extends Controller
     protected $rdr   = 'admin/item';
     public function index()
     {
-        $data   = Product::orderBy('id')->paginate(5);
+        $data   = Product::orderBy('id')->paginate(10);
         return view($this->folder.'.index',compact('data'));
     }
 

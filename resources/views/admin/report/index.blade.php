@@ -5,12 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Pesanan
-        <small>Daftar Pesanan Pelanggan</small>
+        Laporan
+        <small>Laporan Pesanan Pelanggan</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{url('admin')}}"><i class="fa fa-home"></i> Home</a></li>
-        <li class="active">Pesanan</li>
+        <li class="active">Laporan</li>
       </ol>
     </section>
 
@@ -20,7 +20,12 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <a href="{{route('order.create')}}" class="btn btn-primary btn-sm">Tambah</a>
+          <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#filter"><i class="fa fa-align-center"></i> Filter</button>
+          @include('admin.report.filter')
+          <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#download">Download  <i class="fa fa-cloud-download"></i></a>
+          @include('admin.report.download')
+          <a href="{{ route('report.pdf') }}" class="btn btn-danger btn-sm">Download sebagai PDF  <i class="fa fa-file-pdf-o"></i></a>
+          <a href="{{ route('report.excel') }}" class="btn btn-success btn-sm">Download sebagai Exel  <i class="fa fa-file-excel-o"></i> </a>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                     title="Collapse">
@@ -36,8 +41,10 @@
             <thead>
               <th>Nomor</th>
               <th>Nomor Meja</th>
+              <th>Pembayaran</th>
+              <th>Total</th>
               <th>Kasir</th>
-              <th>Aksi</th>
+              <th></th>
             </thead>
             <tbody>
               @php
@@ -49,21 +56,23 @@
                 }
               @endphp
               @foreach ($data as $row)
-                <tr role="row" class="odd">
-                  <td>{{$nomor++}}</td>
-                  <td>{{$row->table_number}}</td>
-                  <td>{{$row->user->name}}</td>
-                  <td>
-                      <form action="{{route('order.destroy',$row->id)}}" method="post">
-                          <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{$row->id}}">Rincian</a>
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-danger btn-sm" onclick='javascript:return confirm("Apakah anda yakin ingin menghapus data ini?")'>Hapus</button>
-                      </form>
-                    @include('admin.order.modal')
-                  </td>
-                </tr>
+              <tr role="row" class="odd">
+                <td>{{$nomor++}}</td>
+                <td>{{$row->table_number}}</td>
+                <td>{{$row->payment->name}}</td>
+                <td>{{rupiah($row->total)}}</td>
+                <td>{{$row->user->name}}</td>
+                <td>
+                  <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{$row->id}}">Rincian</a>
+                  @include('admin.order.modal')
+                </td>
+              </tr>
               @endforeach
+              @if (count($data)==0)
+              <tr role="row" class="odd">
+                <td colspan="6">Data Tidak Tersedia</td>
+              </tr>
+              @endif
             </tbody>
           </table>
         </div>

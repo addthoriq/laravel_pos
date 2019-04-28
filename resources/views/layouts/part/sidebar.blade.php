@@ -24,13 +24,14 @@
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
-      <li class="header">MAIN NAVIGATION</li>
+      <li class="header">HALAMAN UTAMA</li>
       {{-- Home --}}
       <li class="{{Request::is('admin')?'active':''}}">
         <a href="{{ url('admin/')}}">
           <i class="fa fa-home"></i> <span>Home</span>
         </a>
       </li>
+      <li class="header">MAIN NAVIGATION</li>
       {{-- Product --}}
       <li class="treeview {{Request::is('admin/category','admin/category/create','admin/item','admin/item/create')?'active':''}}">
         <a href="#">
@@ -50,10 +51,17 @@
           <i class="fa fa-shopping-cart"></i> <span>Order</span>
         </a>
       </li>
+      <li class="header">SETTING</li>
       {{-- Payment --}}
       <li class="{{Request::is('admin/payment','admin/payment/create')?'active':''}}">
         <a href="{{route('payment.index')}}">
           <i class="fa fa-dollar"></i> <span>Payment</span>
+        </a>
+      </li>
+      {{-- Report --}}
+      <li class="{{Request::is('admin/report')?'active':''}}">
+        <a href="{{route('report.index')}}">
+          <i class="fa fa-book"></i> <span>Report Order</span>
         </a>
       </li>
       {{-- User --}}
