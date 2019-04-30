@@ -21,7 +21,7 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <a href="{{route('item.create')}}" class="btn btn-primary btn-sm">Tambah</a>
+          <a href="{{route('item.create')}}" class="btn btn-info btn-sm">Tambah <i class="fa fa-plus-circle"></i></a>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                     title="Collapse">
@@ -39,7 +39,7 @@
               <th>Kategori</th>
               <th>Nama</th>
               <th>Status</th>
-              <th>Aksi</th>
+              <th></th>
             </thead>
             <tbody>
               @php
@@ -62,10 +62,10 @@
                   @endif</td>
                   <td>
                       <form action="{{route('item.destroy',$row->id)}}" method="post">
-                          <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{$row->id}}">Rincian</a>
+                          <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{$row->id}}"><i class="fa fa-chevron-circle-right"></i></a>
                           @csrf
                           @method('DELETE')
-                          <button type="submit" class="btn btn-danger btn-sm" onclick='javascript:return confirm("Apakah anda yakin ingin menghapus data ini?")'>Hapus</button>
+                          <button type="submit" class="btn btn-danger btn-sm" onclick='javascript:return confirm("Apakah anda yakin ingin menghapus data ini?")'><i class="fa fa-trash"></i></button>
                       </form>
                     @include('admin.product.item.modal')
                   </td>

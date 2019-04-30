@@ -30,4 +30,5 @@ Route::prefix('admin')->group(function(){
 	Route::get('/report', 'Admin\ReportController@index')->name('report.index');
 	Route::get('/report/pdf', 'Admin\ReportController@pdf')->name('report.pdf');
 	Route::get('/report/excel', 'Admin\ReportController@excel')->name('report.excel');
+    Route::get('/report/download', 'Admin\ReportController@download')->name('report.download');
 });

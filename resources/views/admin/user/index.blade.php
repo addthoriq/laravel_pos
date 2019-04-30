@@ -20,7 +20,7 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <a href="{{route('user.create')}}" class="btn btn-primary btn-sm">Tambah</a>
+          <a href="{{route('user.create')}}" class="btn btn-info btn-sm">Tambah <i class="fa fa-plus-circle"></i></a>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                     title="Collapse">
@@ -36,7 +36,7 @@
             <thead>
               <th>Nomor</th>
               <th>Nama</th>
-              <th>Aksi</th>
+              <th></th>
             </thead>
             <tbody>
               @php
@@ -48,10 +48,10 @@
                   <td>{{$row->name}}</td>
                   <td>
                       <form action="{{route('user.destroy',$row->id)}}" method="post">
-                          <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{$row->name}}">Rincian</a>
+                          <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{$row->name}}"><i class="fa fa-chevron-circle-right"></i></a>
                           @csrf
                           @method('DELETE')
-                          <button type="submit" class="btn btn-danger btn-sm" onclick='javascript:return confirm("Apakah anda yakin ingin menghapus data ini?")'>Hapus</button>
+                          <button type="submit" class="btn btn-danger btn-sm" onclick='javascript:return confirm("Apakah anda yakin ingin menghapus data ini?")'><i class="fa fa-trash"></i></button>
                       </form>
                     @include('admin.user.modal')
                   </td>

@@ -18,7 +18,7 @@
                 <label for="inputNama" class="col-sm-2 control-label">Tahun</label>
                 <div class="col-sm-10">
                   <select class="form-control" name="tahun">
-                    <option value="">-- Pilih Tahun --</option>
+                      <option value="">-- Pilih Tahun --</option>
                     @for ($i = 2010; $i < 2020; $i++)
                       <option value="{{$i}}">{{$i}}</option>
                     @endfor
@@ -34,7 +34,7 @@
                 <label for="inputNama" class="col-sm-2 control-label">Bulan</label>
                 <div class="col-sm-10">
                   <select class="form-control" name="bulan">
-                    <option value="">-- Pilih Bulan --</option>
+                      <option value="">-- Pilih Bulan --</option>
                     @for ($i = 1; $i <= 12 ; $i++)
                       <option value="{{$i}}">{{date('F', mktime(0,0,0,$i,1))}}</option>
                     @endfor
@@ -50,7 +50,7 @@
                 <label for="inputNama" class="col-sm-2 control-label">Petugas Kasir</label>
                 <div class="col-sm-10">
                   <select class="form-control" name="kasir">
-                    <option value="">-- Pilih Petugas Kasir --</option>
+                      <option value="">-- Pilih Kasir --</option>
                     @foreach ($users as $row)
                       <option value="{{$row->id}}">{{$row->name}}</option>
                     @endforeach

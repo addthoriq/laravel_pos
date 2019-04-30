@@ -20,12 +20,10 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#filter"><i class="fa fa-align-center"></i> Filter</button>
+          <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#filter">Filter <i class="fa fa-align-center"></i></button>
           @include('admin.report.filter')
-          <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#download">Download  <i class="fa fa-cloud-download"></i></a>
+          <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#download">Download  <i class="fa fa-cloud-download"></i></a>
           @include('admin.report.download')
-          <a href="{{ route('report.pdf') }}" class="btn btn-danger btn-sm">Download sebagai PDF  <i class="fa fa-file-pdf-o"></i></a>
-          <a href="{{ route('report.excel') }}" class="btn btn-success btn-sm">Download sebagai Exel  <i class="fa fa-file-excel-o"></i> </a>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                     title="Collapse">
@@ -36,7 +34,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-        @include('layouts.alert')
+        @include('layouts.fail')
           <table class="table table-bordered table-hover dataTable text-center">
             <thead>
               <th>Nomor</th>
@@ -63,7 +61,7 @@
                 <td>{{rupiah($row->total)}}</td>
                 <td>{{$row->user->name}}</td>
                 <td>
-                  <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{$row->id}}">Rincian</a>
+                  <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{$row->id}}"><i class="fa  fa-chevron-circle-right "></i></a>
                   @include('admin.order.modal')
                 </td>
               </tr>

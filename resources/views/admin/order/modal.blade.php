@@ -83,6 +83,7 @@
       </div>
 
       <div class="modal-footer">
+        <a href="{{ route('order.show', $row->id) }}" target="_blank" class="btn btn-default btn-sm pull-left"><i class="fa fa-print"></i> Cetak</a>
         <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Tutup</button>
       </div>
     </div>

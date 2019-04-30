@@ -93,7 +93,8 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $data   = Order::find($id);
+        return view($this->folder.'.print', compact('data'));
     }
 
     /**
