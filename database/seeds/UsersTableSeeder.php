@@ -12,23 +12,23 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $data   = [
-            [
-                'name'  => 'Thoriq',
-                'email'  => 'thoriq@email.com',
-                'password'  => bcrypt('123'),
-                'created_at'  => now(),
-                'updated_at'  => now(),
-            ],
-            [
-                'name'  => 'Rahma',
-                'email'  => 'rahma@email.com',
-                'password'  => bcrypt('123'),
-                'created_at'  => now(),
-                'updated_at'  => now(),
-            ]
-        ];
-        DB::table('users')->truncate();
-        DB::table('users')->insert($data);
+        // $data   = [
+        //     [
+        //         'name'  => 'Thoriq',
+        //         'email'  => 'thoriq@email.com',
+        //         'password'  => bcrypt('123'),
+        //         'created_at'  => now(),
+        //         'updated_at'  => now(),
+        //     ],
+        //     [
+        //         'name'  => 'Rahma',
+        //         'email'  => 'rahma@email.com',
+        //         'password'  => bcrypt('123'),
+        //         'created_at'  => now(),
+        //         'updated_at'  => now(),
+        //     ]
+        // ];
+        // DB::table('users')->truncate();
+        // DB::table('users')->insert($data);
     }
 }

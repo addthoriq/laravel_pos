@@ -49,7 +49,8 @@ class UserController extends Controller
         $data->email     = $request->email;
         $data->password     = bcrypt($request->password);
         $data->save();
-        return redirect($this->rdr)->with('success', 'Data berhasil di tambah');
+        auth()->login($data);
+        return redirect('admin/')->with('success', 'Selamat Datang di Sistem Admin Sarkop v.0.0.1');
     }
 
     /**

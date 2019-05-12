@@ -21,21 +21,37 @@
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="/adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-            <span class="hidden-xs">{{auth()->user()->name}}</span>
+            @if (auth()->check())
+              @if(auth()->user()->poto)
+                <img src="{{Storage::url(auth()->user()->poto)}}" class="user-image" alt="User Image">
+                @else
+                <img src="{{Avatar::create(auth()->user()->name)->toBase64()}}" class="user-image" alt="User Image">
+              @endif
+            @endif
+            @if (auth()->check())
+              <span class="hidden-xs">{{auth()->user()->name}}</span>
+            @endif
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+              @if (auth()->check())
+                @if(auth()->user()->poto)
+                  <img src="{{Storage::url(auth()->user()->poto)}}" class="user-image" alt="User Image">
+                  @else
+                  <img src="{{Avatar::create(auth()->user()->name)->toBase64()}}" class="user-image" alt="User Image">
+                @endif
+              @endif
 
-              <p>
+              @if (auth()->check())
+                <p>
                 {{auth()->user()->name}}
                 @php
                   
                 @endphp
                 <small>Member since {{date('d F Y', strtotime(auth()->user()->created_at))}}</small>
               </p>
+              @endif
             </li>
             <!-- Menu Body -->
             <li class="user-body">

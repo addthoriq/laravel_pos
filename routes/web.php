@@ -14,12 +14,15 @@
 Route::get('/', 'Admin\AuthController@index')->name('auth.index');
 Route::post('/login', 'Admin\AuthController@login')->name('auth.login');
 Route::post('/logout', 'Admin\AuthController@logout')->name('auth.logout');
+Route::get('/register', 'Admin\RegisterController@index')->name('register.index');
+
+//Sosmed
+Route::get('auth/{provider}', 'Auth\SocialController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\SocialController@handleProviderCallback');
 
 Route::prefix('admin')->group(function(){
     //Didalam
-    Route::get('/', function(){
-        return view('admin.index');
-    });
+    Route::get('/', 'Admin\HomeController@index');
     Route::resource('/category', 'Admin\CategoryController');
     Route::resource('/item', 'Admin\ProductController');
     Route::resource('/order', 'Admin\OrderController');
@@ -32,3 +35,5 @@ Route::prefix('admin')->group(function(){
 	Route::get('/report/excel', 'Admin\ReportController@excel')->name('report.excel');
     Route::get('/report/download', 'Admin\ReportController@download')->name('report.download');
 });
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -14,4 +14,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class, 'created_by');
     }
+    public function social()
+    {
+    	return $this->hasMany(Social::class);
+    }
 }

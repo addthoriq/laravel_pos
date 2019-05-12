@@ -56,11 +56,14 @@ class OrderController extends Controller
         // ]);
         $product    = Product::find($request->pesanan);
         $count  = count($request->pesanan);
-        $item   = $request->pesanan;
+        $nama   = $request->nama;
+        $harga  = $request->harga;
         $qty    = $request->jumlah;
         $note   = $request->note;
         $sub    = $request->subtotal;
+        $disc   = $request->discount;
         $total  = $request->total;
+
         $request->merge([
             'created_by'   => auth()->user()->id,
         ]);
@@ -70,17 +73,25 @@ class OrderController extends Controller
         for ($i=0; $i < $count; $i++) { 
             $request->merge([
                 'order_id'  => $orderData->id,
-                'product_id' => $item[$i],
+                'product_name' => $nama[$i],
+                'product_price' => $harga[$i],
                 'quantity'  => $qty[$i],
                 'note'      => $note[$i],
                 'subtotal'  => $sub[$i],
             ]);
-            $orderDetail    = $request->only('order_id','product_id','quantity','note', 'subtotal');
+            $orderDetail    = $request->only('order_id','product_name','product_price','quantity','note', 'subtotal');
             OrderDetail::create($orderDetail);
         }
-        Order::find($orderData->id)->update([
-            'total' => $total,
-        ]);
+        if (empty($disc)) {
+            Order::find($orderData->id)->update([
+                'total' => $total,
+            ]);
+        }else{
+            Order::find($orderData->id)->update([
+                'discount' => $disc,
+                'total' => $total,
+            ]);
+        }
 
         return redirect($this->rdr)->with('success', 'Data berhasil ditambahkan');
     }

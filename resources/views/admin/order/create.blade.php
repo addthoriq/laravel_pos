@@ -33,30 +33,68 @@
         <form class="form-horizontal" method="post" action="{{route('order.store')}}">
           @csrf
           <div class="box-body">
+
             <div class="row">
-              <div class="col-sm-8">
-                <h5><b>Tambah Pesanan</b></h5>
-              </div>
-              <div class="col-sm-2">
+              <div class="col-sm-3">
                 <h5><b>Petugas Kasir</b></h5>
               </div>
-              <div class="col-sm-2">
+              <div class="col-sm-3">
                 <h5><b>Tanggal Pemesanan</b></h5>
+              </div>
+              <div class="col-sm-3">
+                <h5><b>Nomor Meja</b></h5>
+              </div>
+              <div class="col-sm-3">
+                <h5><b>Metode Pembayaran</b></h5>
+              </div>
+            </div>
+
+           <div class="row">
+              
+              <div class="col-sm-3">
+                <input type="text" name="user_id" value="{{auth()->user()->name}}" class="form-control" disabled>
+              </div>
+              <div class="col-sm-3">
+                <input type="text" name="created_at" value="{{date('d F Y')}}" class="form-control" disabled>
+              </div>
+              <div class="col-sm-3">
+                <input type="text" name="table_number" class="form-control" value="{{old('table_number')}}" id="inputNama" placeholder="ex: 12">
+              </div>
+              <div class="col-sm-3">
+                <select class="form-control" name="payment_id">
+                  <option value="">Jenis Pembayaran</option>
+                  @foreach ($data as $row)
+                      @if ($row->status)
+                        <option value="{{$row->id}}">{{$row->name}}</option>
+                      @endif
+                  @endforeach
+                </select>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <h5><b>Tambah Pesanan</b></h5>
               </div>
             </div>
 
             <div class="row" id="app">
               
-              <div class="col-sm-8">
+              <div class="col-sm-12">
                 <div class="row" v-for="(order, index) in orders" :key="index">
                   <div>
                     <div class="col-sm-3">
                       <select class="form-control" name="pesanan[]" v-model="order.pesanan">
                         @foreach ($pro as $mow)
-                          <option value="{{$mow->id}}">{{$mow->name}}</option>
+                          @if ($mow->status)
+                            <option value="{{$mow->id}}">{{$mow->name}}</option>
+                          @endif
                         @endforeach
                       </select>
                     </div>
+                    <input type="hidden" name="nama[]" :value="product_name(order.pesanan, index)">
+                    <input type="hidden" name="harga[]" :value="product_price(order.pesanan, index)">
                     <div class="col-sm-2">
                       <input type="number" name="jumlah[]" class="form-control" value="{{old('jumlah')}}" id="inputJumlah" placeholder="ex: 2" v-model="order.jumlah">
                     </div>
@@ -70,64 +108,31 @@
                   </div>
                   <br>
                 </div>
+
+                <div class="row">
+                  <div class="col-sm-2">
+                    <button type="button" class="btn btn-success btn-sm" @click="addOrder()" ><i class="fa fa-plus"></i></button>
+                  </div>
+                </div>
+
+                <br>
                 
                 <div class="row">
-                  <div class="col-sm-8">
-                    <h5>
-                      <button type="button" class="btn btn-success btn-sm" @click="addOrder()" ><i class="fa fa-plus"></i></button>
-                    </h5>
+                  <div class="col-sm-12">
+                    <h5><b>Diskon</b></h5>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="col-sm-8">
-                    <h3>
+                  <div class="col-sm-2">
+                    <input type="number" name="discount" class="form-control" placeholder="Diskon" v-model="discount">
+                  </div>
+                  <input type="hidden" name="total" :value="total" readonly="">
+                  <div class="col-sm-8" style="font-size: 24px">
                       Total: Rp <span>@{{rupiah(total)}}</span>
-                    </h3>
-                    <input type="hidden" name="total" :value="total" readonly="">
                   </div>
                 </div>
               
-              </div>
-
-              <div class="col-sm-4">
-                <div class="row">
-                  
-                  <div class="col-sm-6">
-                    <input type="text" name="user_id" value="{{auth()->user()->name}}" class="form-control" disabled>
-                  </div>
-                  <div class="col-sm-6">
-                    <input type="text" name="created_at" value="{{date('d F Y')}}" class="form-control" disabled>
-                  </div>
-
-                </div>
-                
-                <div class="row">
-                  
-                  <div class="col-sm-6">
-                    <h5><b>Nomor Meja</b></h5>
-                  </div>
-                  <div class="col-sm-6">
-                    <h5><b>Metode Pembayaran</b></h5>
-                  </div>
-
-                </div>
-                <div class="row">
-                  
-                  <div class="col-sm-6">
-                    <input type="text" name="table_number" class="form-control" value="{{old('table_number')}}" id="inputNama" placeholder="ex: 12">
-                  </div>
-                  <div class="col-sm-6">
-                    <select class="form-control" name="payment_id">
-                      <option value="">Jenis Pembayaran</option>
-                      @foreach ($data as $row)
-                          <option value="{{$row->id}}">{{$row->name}}</option>
-                      @endforeach
-                    </select>
-                  </div>
-
-                </div>
-
               </div>
 
             </div>
@@ -155,12 +160,13 @@
     el: '#app',
     data: {
       orders: [
-        {pesanan: 0, jumlah: 1, subtotal: 0},
-      ]
+        {pesanan: 0, nama: "", harga: 0, jumlah: 1, subtotal: 0},
+      ],
+      discount: 0,
     },
     methods: {
       addOrder(){
-        var orders = {pesanan: 0, jumlah: 1, subtotal: 0};
+        var orders = {pesanan: 0, nama: "", harga: 0, jumlah: 1, subtotal: 0};
         this.orders.push(orders);
       },
       delOrder(index){
@@ -176,7 +182,17 @@
       rupiah(total){
         let val = (total/1).toFixed(2).replace('.', ',')
         return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-      }
+      },
+      product_name(pesanan, index){
+        var product_name = this.nama[pesanan];
+        this.orders[index].nama = product_name;
+        return product_name;
+      },
+      product_price(pesanan, index){
+        var product_price = this.produk[pesanan];
+        this.orders[index].harga = product_price;
+        return product_price;
+      },
     },
     computed: {
       produk(){
@@ -187,11 +203,21 @@
         @endforeach
         return produk;
       },
+      nama(){
+        let produk  = [];
+        produk[0] = 0;
+        @foreach ($pro as $produk)
+          produk[{{$produk->id}}]  = "{{$produk->name}}"
+        @endforeach
+        return produk;
+      },
       total(){
-        return this.orders
+        var total = this.orders
         .map(order=>order.subtotal)
         .reduce((prev, next)=>prev+next);
-      }
+
+        return total - (total * this.discount / 100);
+      },
     }
   });
 </script>

@@ -22,7 +22,9 @@
 <body>
     <div class="login-box">
       <div class="login-logo">
-        <a href="{{url('/')}}"><b>Admin</b>LTE</a>
+        <a href="{{url('/')}}"><b>Sar</b>Kop</a>
+        <br>
+        <small>Admin SarangKopi versi 0.0.1</small>
       </div>
       <!-- /.login-logo -->
       <div class="login-box-body">
@@ -53,18 +55,17 @@
             <!-- /.col -->
           </div>
         </form>
+        <!-- /.social-auth-links -->
 
         <div class="social-auth-links text-center">
           <p>- OR -</p>
-          <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+          <a href="{{ url('/auth/facebook') }}" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
             Facebook</a>
-          <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
-            Google+</a>
+          <a href="{{ url('/auth/github') }}" class="btn btn-block btn-social btn-github btn-flat"><i class="fa fa-github"></i> Sign in using
+            Github</a>
         </div>
-        <!-- /.social-auth-links -->
 
-        <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="{{ route('register.index') }}" class="text-center">Register a new membership</a>
 
       </div>
       <!-- /.login-box-body -->
@@ -90,6 +91,21 @@
           increaseArea: '20%' /* optional */
         });
       });
+    if (window.location.hash && window.location.hash == '#_=_') {
+        if (window.history && history.pushState) {
+            window.history.pushState("", document.title, window.location.pathname);
+        } else {
+            // Prevent scrolling by storing the page's current scroll offset
+            var scroll = {
+                top: document.body.scrollTop,
+                left: document.body.scrollLeft
+            };
+            window.location.hash = '';
+            // Restore the scroll offset, should be flicker free
+            document.body.scrollTop = scroll.top;
+            document.body.scrollLeft = scroll.left;
+        }
+    }
     </script>
 </body>
 </html>

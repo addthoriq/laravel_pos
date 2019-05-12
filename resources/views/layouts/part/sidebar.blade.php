@@ -4,10 +4,18 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        @if (auth()->check())
+          @if(auth()->user()->poto)
+            <img src="{{Storage::url(auth()->user()->poto)}}" class="user-image" alt="User Image">
+            @else
+            <img src="{{Avatar::create(auth()->user()->name)->toBase64()}}" class="user-image" alt="User Image">
+          @endif
+        @endif
       </div>
       <div class="pull-left info">
-        <p>{{auth()->user()->name}}</p>
+        @if (auth()->check())
+          <p>{{auth()->user()->name}}</p>
+        @endif
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>

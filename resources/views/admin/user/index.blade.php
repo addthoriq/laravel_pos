@@ -48,7 +48,7 @@
                   <td>{{$row->name}}</td>
                   <td>
                       <form action="{{route('user.destroy',$row->id)}}" method="post">
-                          <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{$row->name}}"><i class="fa fa-chevron-circle-right"></i></a>
+                          <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{$row->id}}"><i class="fa fa-chevron-circle-right"></i></a>
                           @csrf
                           @method('DELETE')
                           <button type="submit" class="btn btn-danger btn-sm" onclick='javascript:return confirm("Apakah anda yakin ingin menghapus data ini?")'><i class="fa fa-trash"></i></button>
