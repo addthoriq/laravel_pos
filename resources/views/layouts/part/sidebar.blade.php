@@ -7,8 +7,10 @@
         @if (auth()->check())
           @if(auth()->user()->poto)
             <img src="{{Storage::url(auth()->user()->poto)}}" class="user-image" alt="User Image">
+            @elseif(auth()->user()->avatar)
+              <img src="{{auth()->user()->avatar}}" class="user-image" alt="User Image">
             @else
-            <img src="{{Avatar::create(auth()->user()->name)->toBase64()}}" class="user-image" alt="User Image">
+              <img src="{{Avatar::create(auth()->user()->name)->toBase64()}}" class="user-image" alt="User Image">
           @endif
         @endif
       </div>
