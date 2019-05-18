@@ -51,11 +51,11 @@
                     <div class="radio col-sm-10">
                         <label for="optionsRadios1">
                             <input type="radio" name="status" id="optionsRadios1" value="1">
-                            Ada
+                            Tersedia
                         </label><br>
                         <label for="optionsRadios2">
                             <input type="radio" name="status" id="optionsRadios2" value="0">
-                            Habis
+                            Tidak Tersedia
                         </label><br>
                         @if ($errors->has('status'))
                             <span class="text-danger">

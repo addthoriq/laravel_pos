@@ -24,10 +24,12 @@ Route::prefix('admin')->group(function(){
     //Didalam
     Route::get('/', 'Admin\HomeController@index');
     Route::resource('/category', 'Admin\CategoryController');
+    Route::get('/category/table', 'Admin\CategoryController@table')->name('category.table');
     Route::resource('/item', 'Admin\ProductController');
     Route::resource('/order', 'Admin\OrderController');
     Route::resource('/payment', 'Admin\PaymentController');
 	Route::resource('/user', 'Admin\UserController');
+    Route::post('/email/{id}','Admin\OrderController@sendmail')->name('order.mail');
 
 	//Report
 	Route::get('/report', 'Admin\ReportController@index')->name('report.index');

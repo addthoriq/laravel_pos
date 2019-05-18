@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use App\Model\Order;
 use App\Model\Payment;
 use App\Model\OrderDetail;
 use App\Model\Product;
+use App\Mail\SendMail;
 
 class OrderController extends Controller
 {
@@ -67,7 +69,7 @@ class OrderController extends Controller
         $request->merge([
             'created_by'   => auth()->user()->id,
         ]);
-        $order  = $request->only('table_number', 'payment_id', 'created_by');
+        $order  = $request->only('table_number', 'payment_id', 'email', 'created_by');
         $orderData = Order::create($order);
 
         for ($i=0; $i < $count; $i++) { 
@@ -170,5 +172,11 @@ class OrderController extends Controller
         $data = Order::find($id);
         $data->delete();
         return redirect($this->rdr)->with('success', 'Data berhasil dihapus');
+    }
+    public function sendmail($id)
+    {
+        $order  = Order::find($id);
+        Mail::to($order)->send(new SendMail($id));
+        return redirect($this->rdr)->with('success', 'Email telah terkirim');
     }
 }

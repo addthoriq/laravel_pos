@@ -116,19 +116,25 @@
                 </div>
 
                 <br>
-                
+
                 <div class="row">
-                  <div class="col-sm-12">
+                  <div class="col-sm-4">
+                    <h5><b>Email Pembeli</b></h5>
+                  </div>
+                  <div class="col-sm-2">
                     <h5><b>Diskon</b></h5>
                   </div>
                 </div>
 
                 <div class="row">
+                  <div class="col-sm-4">
+                    <input type="email" name="email" class="form-control" placeholder="ex: agus@email.com">
+                  </div>
                   <div class="col-sm-2">
                     <input type="number" name="discount" class="form-control" placeholder="Diskon" v-model="discount">
                   </div>
                   <input type="hidden" name="total" :value="total" readonly="">
-                  <div class="col-sm-8" style="font-size: 24px">
+                  <div class="col-sm-6" style="font-size: 24px">
                       Total: Rp <span>@{{rupiah(total)}}</span>
                   </div>
                 </div>

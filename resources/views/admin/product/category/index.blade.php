@@ -33,11 +33,10 @@
         <!-- /.box-header -->
         <div class="box-body">
         @include('layouts.alert')
-          <table class="table table-bordered table-hover dataTable text-center">
+          <table class="table table-bordered text-center" id="table">
             <thead>
               <th>Nomor</th>
               <th>Nama</th>
-              <th></th>
             </thead>
             <tbody>
               @php
@@ -83,4 +82,19 @@
     </section>
     <!-- /.content -->
   </div>
+@endsection
+@section('script')
+  <script type="text/javascript">
+    $(function() {
+      var oTable = $('#table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('category.table') }}',
+        columns: [
+        {data: 'id', name: 'id'},
+        {data: 'name', name: 'name'}
+        ]
+      });
+    });
+  </script>
 @endsection

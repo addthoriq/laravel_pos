@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Category;
+use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
@@ -19,6 +20,11 @@ class CategoryController extends Controller
     {
         $data     = Category::orderBy('id')->paginate(10);
         return view($this->folder.'.index', compact('data'));
+    }
+
+    public function table()
+    {
+        return DataTables::of(Category::query())->make(true);
     }
 
     /**

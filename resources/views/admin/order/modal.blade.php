@@ -111,14 +111,31 @@
                   </h5>
                 </div>
               </div>
+              <div class="row" >
+                <div class="col-sm-4">
+                  <h5 class="text-center">
+                    <b class="pull-left">Email Pembeli</b>
+                  </h5>
+                </div>
+                <div class="col-sm-8" >
+                  <h5 class="text-left">
+                    <b>: </b>
+                    <span>{{$row->email}}</span>
+                  </h5>
+                </div>
+              </div>
             </div>
           </div>
 
         </div>
 
         <div class="modal-footer">
-          <a href="{{ route('order.show', $row->id) }}" target="_blank" class="btn btn-default btn-sm pull-left"><i class="fa fa-print"></i> Cetak</a>
-          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Tutup</button>
+          <form method="post" action="{{ route('order.mail', $row->id) }}">
+            @csrf
+            <a href="{{ route('order.show', $row->id) }}" target="_blank" class="btn btn-default btn-sm pull-left"><i class="fa fa-print"></i> Cetak</a>
+            <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-send"></i> Kirim via Email</button>
+            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Tutup</button>
+          </form>
         </div>
       </div>
     </div>
