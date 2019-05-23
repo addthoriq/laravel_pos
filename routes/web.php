@@ -23,8 +23,8 @@ Route::get('auth/{provider}/callback', 'Auth\SocialController@handleProviderCall
 Route::prefix('admin')->group(function(){
     //Didalam
     Route::get('/', 'Admin\HomeController@index');
-    Route::resource('/category', 'Admin\CategoryController');
     Route::get('/category/table', 'Admin\CategoryController@table')->name('category.table');
+    Route::resource('/category', 'Admin\CategoryController');
     Route::resource('/item', 'Admin\ProductController');
     Route::resource('/order', 'Admin\OrderController');
     Route::resource('/payment', 'Admin\PaymentController');

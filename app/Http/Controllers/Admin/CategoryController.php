@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Category;
-use Yajra\DataTables\DataTables;
+use DataTables;
+use Form;
 
 class CategoryController extends Controller
 {
@@ -16,15 +17,25 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data     = Category::orderBy('id')->paginate(10);
+        $data   = Category::all();
         return view($this->folder.'.index', compact('data'));
     }
 
-    public function table()
+    public function table(Request $request)
     {
-        return DataTables::of(Category::query())->make(true);
+        $data  = Category::select(['id', 'name', 'created_at']);
+        return Datatables::of($data)
+        ->editColumn('created_at', function($index){
+            return $index->created_at->format('d F Y');
+        })
+        ->addColumn('action', function($index){
+            $tag = '<form action="'.route('category.destroy',$index->id).'" method="post"><a class="btn btn-success btn-sm" data-toggle="modal" data-target="#'.$index->id.'"><i class="fa fa-chevron-circle-right"></i></a> '.csrf_field().method_field("DELETE").'<button type="submit" class="btn btn-danger btn-sm" onclick="javascript:return confirm("Apakah anda yakin ingin menghapus data ini?")"><i class="fa fa-trash"></i></button></form>';
+            return $tag;
+        })
+        ->rawColumns(['id','action'])
+        ->make(true);
     }
 
     /**

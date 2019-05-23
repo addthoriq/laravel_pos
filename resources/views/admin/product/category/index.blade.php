@@ -37,46 +37,13 @@
             <thead>
               <th>Nomor</th>
               <th>Nama</th>
+              <th>Tanggal</th>
+              <th>Aksi</th>
             </thead>
-            <tbody>
-              @php
-                $nomor = 1;
-              @endphp
-              @foreach ($data as $row)
-                <tr role="row" class="odd">
-                  <td>{{$nomor++}}</td>
-                  <td>{{$row->name}}</td>
-                  <td>
-                      <form action="{{route('category.destroy',$row->id)}}" method="post">
-                          <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{$row->name}}"><i class="fa  fa-chevron-circle-right "></i></a>
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-danger btn-sm" onclick='javascript:return confirm("Apakah anda yakin ingin menghapus data ini?")'><i class="fa fa-trash"></i></button>
-                      </form>
-                    @include('admin.product.category.modal')
-                  </td>
-                </tr>
-              @endforeach
-            </tbody>
+            {{-- @foreach ($data as $row)
+              @include('admin.product.category.modal')
+            @endforeach --}}
           </table>
-        </div>
-        <div class="box-footer">
-          <div class="row">
-              <div class="col-sm-5">
-                  <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                      @if ($data->total()>10)
-                          Menampilkan 1 sampai 10 dari {{$data->total()}} data
-                          @else
-                              Menampilkan {{$data->total()}} data
-                      @endif
-                  </div>
-              </div>
-              <div class="col-sm-7">
-                  <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                      {{$data->links()}}
-                  </div>
-              </div>
-          </div> 
         </div>
       </div>
     </section>
@@ -84,16 +51,21 @@
   </div>
 @endsection
 @section('script')
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     $(function() {
-      var oTable = $('#table').DataTable({
+      $('#table').DataTable({
         processing: true,
         serverSide: true,
         ajax: '{{ route('category.table') }}',
         columns: [
-        {data: 'id', name: 'id'},
-        {data: 'name', name: 'name'}
-        ]
+          {data: 'id', searchable: true, orderable: true},
+          {data: 'name', searchable: true, orderable: true},
+          {data: 'created_at', searchable: true, orderable: true},
+          {data: 'action', searchable: false, orderable: false},
+        ],
       });
     });
   </script>
