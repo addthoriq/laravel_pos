@@ -41,12 +41,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'category'  => 'required',
-            'name'  => 'required',
-            'price'  => 'required',
-            'status'  => 'required',
-        ]);
         $data   = new Product;
         $data->category_id  = $request->category;
         $data->name  = $request->name;
