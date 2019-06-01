@@ -1,2 +1,0 @@
-[2019-04-23 17:08:21.064] [renderer1] [error] Inotify limit reached (ENOSPC)
-[2019-04-23 21:14:39.212] [renderer1] [warning] UNRESPONSIVE extension host, 'vscode.merge-conflict' took 99% of 14879.171ms, saved PROFILE here: '/tmp/exthost-f3006e.cpuprofile' [{"id":"esbenp.prettier-vscode","total":86242,"percentage":1},{"id":"vscode.merge-conflict","total":14763107,"percentage":99}]

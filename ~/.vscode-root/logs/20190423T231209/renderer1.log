@@ -1,2 +1,0 @@
-[2019-04-23 23:12:34.017] [renderer1] [error] Inotify limit reached (ENOSPC)
-[2019-04-23 23:13:04.227] [renderer1] [warning] UNRESPONSIVE extension host, 'junstyle.php-cs-fixer' took 86% of 892.285ms, saved PROFILE here: '/tmp/exthost-933daf.cpuprofile' [{"id":"eamodio.gitlens","total":99777,"percentage":11},{"id":"junstyle.php-cs-fixer","total":770626,"percentage":86},{"id":"program","total":161,"percentage":0},{"id":"self","total":14491,"percentage":2}]

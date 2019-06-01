@@ -12,8 +12,8 @@
 */
 
 Route::get('/', 'Admin\AuthController@index')->name('auth.index');
-Route::post('/login', 'Admin\AuthController@login')->name('auth.login');
-Route::post('/logout', 'Admin\AuthController@logout')->name('auth.logout');
+Route::post('/login', 'Admin\AuthController@login')->name('log.login');
+Route::post('/logout', 'Admin\AuthController@logout')->name('log.logout');
 Route::get('/register', 'Admin\RegisterController@index')->name('register.index');
 
 //Sosmed
@@ -37,5 +37,9 @@ Route::prefix('admin')->group(function(){
 	Route::get('/report/excel', 'Admin\ReportController@excel')->name('report.excel');
     Route::get('/report/download', 'Admin\ReportController@download')->name('report.download');
 });
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -72,7 +72,7 @@ class OrderController extends Controller
         $order  = $request->only('table_number', 'payment_id', 'email', 'created_by');
         $orderData = Order::create($order);
 
-        for ($i=0; $i < $count; $i++) { 
+        for ($i=0; $i < $count; $i++) {
             $request->merge([
                 'order_id'  => $orderData->id,
                 'product_name' => $nama[$i],
@@ -122,7 +122,7 @@ class OrderController extends Controller
         $data   = Order::find($id);
         $pro    = Product::all();
         $ord    = OrderDetail::find($id);
-        return view($this->folder.'.edit', compact('data','pay','pro','ord'));    
+        return view($this->folder.'.edit', compact('data','pay','pro','ord'));
     }
 
     /**
@@ -177,6 +177,7 @@ class OrderController extends Controller
     {
         $order  = Order::find($id);
         Mail::to($order)->send(new SendMail($id));
-        return redirect($this->rdr)->with('success', 'Email telah terkirim');
+        return redirect($this->rdr)
+        ->with('success', 'Email telah terkirim');
     }
 }

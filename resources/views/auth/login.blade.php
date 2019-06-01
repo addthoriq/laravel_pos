@@ -30,7 +30,7 @@
       <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form action="{{route('auth.login')}}" method="post">
+        <form action="{{route('login')}}" method="post">
           @csrf
           <div class="form-group has-feedback">
             <input type="email" class="form-control" name="email" placeholder="Email">
@@ -40,6 +40,13 @@
             <input type="password" class="form-control" name="password" placeholder="Password">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
+
+          @if (Route::has('password.request'))
+              <a class="btn btn-link" href="{{ route('password.request') }}">
+                  {{ __('Forgot Your Password?') }}
+              </a>
+          @endif
+
           <div class="row">
             <div class="col-xs-8">
               <div class="checkbox icheck">
@@ -65,7 +72,7 @@
             Github</a>
         </div>
 
-        <a href="{{ route('register.index') }}" class="text-center">Register a new membership</a>
+        <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
 
       </div>
       <!-- /.login-box-body -->

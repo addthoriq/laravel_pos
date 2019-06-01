@@ -29,6 +29,8 @@ class SendMail extends Mailable
     public function build()
     {
         $data  = Order::find($this->id);
-        return $this->from('thoriq.kudou@gmail.com')->subject('Ordership Payment')->view('admin.order.print', compact('data'));
+        return $this->from('thoriq.kudou@gmail.com')
+        ->subject('Ordership Payment')
+        ->view('admin.order.print', compact('data'));
     }
 }
